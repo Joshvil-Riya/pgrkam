@@ -1,0 +1,4 @@
+Applicant_ID,Age,Gender,Qualification_Level,Marks_Percentage,Experience_Years,Driving,Sales,Typing,Computer,Govt_Exam_Score,English_Proficiency,Computer_Proficiency,Physical_Fitness,Predicted_Job
+5,24,Male,10th,76.0,4,1,1,1,1,76,4,4,4,Sales Executive
+54,32,Male,10th,98.0,9,0,0,1,1,0,5,5,5,Lab Assistant
+54,32,Male,10th,98.0,9,0,0,1,1,0,5,5,5,Lab Assistant

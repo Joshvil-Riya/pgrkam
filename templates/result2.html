@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PGRKAM Analytics Dashboard</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f9f9f9; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .header {
+            background: linear-gradient(90deg, #ff8c00, #ffa500);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { margin: 0; font-size: 24px; }
+        .header-controls { display: flex; gap: 10px; }
+        .btn { padding: 5px 10px; background: rgba(255,255,255,0.2); border: none; color: white; border-radius: 3px; cursor: pointer; }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .metric-value { font-size: 24px; font-weight: bold; }
+        .metric-change { font-size: 14px; }
+        .positive { color: #28a745; }
+        .negative { color: #dc3545; }
+        .nav-tabs {
+            background: white;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .nav-tab { padding: 10px; cursor: pointer; }
+        .nav-tab.active { border-bottom: 2px solid #ff8c00; color: #ff8c00; }
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+        .chart-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .full-width { grid-column: 1 / -1; }
+        .funnel-section, .paths-section {
+            background: white;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 20px;
+        }
+        .section-half { flex: 1; }
+        .progress-bar { 
+            background: #e0e0e0; 
+            height: 20px; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            margin: 10px 0;
+        }
+        .progress-fill { 
+            background: linear-gradient(90deg, #ff8c00, #ffa500); 
+            height: 100%; 
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>PGRKAM Analytics Dashboard <span style="font-size: 16px;">(Punjab Government)</span></h1>
+        <div class="header-controls">
+            <select><option>Last 30 Days</option></select>
+            <button class="btn">Filter</button>
+            <button class="btn">Export</button>
+            <button class="btn">Admin</button>
+        </div>
+    </div>
+
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="metric-value">45,668</div>
+            <div>Total Active Users</div>
+            <div class="metric-change positive">+12.5%</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">1,284,388</div>
+            <div>Page Views</div>
+            <div class="metric-change positive">+8.2%</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">{{ job_applications }}</div>
+            <div>Job Applications</div>
+            <div class="metric-change positive">+15%</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">679%</div>
+            <div>Success Rate</div>
+            <div class="metric-change positive">+4.3%</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">430s</div>
+            <div>Avg. Session Time</div>
+            <div class="metric-change positive">+0.8%</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">322%</div>
+            <div>Click-Through Rate</div>
+            <div class="metric-change negative">-1.2%</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">788%</div>
+            <div>Mobile Traffic</div>
+            <div class="metric-change positive">+6%</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">318%</div>
+            <div>Bounce Rate</div>
+            <div class="metric-change negative">-2%</div>
+        </div>
+    </div>
+
+    <div class="nav-tabs">
+        <div class="nav-tab">Register</div>
+        <div class="nav-tab">Job Search</div>
+        <div class="nav-tab active">Analytics</div>
+        <div class="nav-tab">Users</div>
+        <div class="nav-tab">Demographics</div>
+        <div class="nav-tab">Channels</div>
+        <div class="nav-tab">Matching</div>
+        <div class="nav-tab">Real-time</div>
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-container">
+            <div id="activity_chart"></div>
+        </div>
+        <div class="chart-container">
+            <div id="traffic_chart"></div>
+        </div>
+        <div class="chart-container full-width">
+            <div id="weekly_chart"></div>
+        </div>
+        <div class="chart-container">
+            <div id="gender_chart"></div>
+        </div>
+        <div class="chart-container">
+            <div id="qual_chart"></div>
+        </div>
+        <div class="chart-container">
+            <div id="job_chart"></div>
+        </div>
+        <div class="chart-container">
+            <div id="age_exp_chart"></div>
+        </div>
+    </div>
+
+    <div class="funnel-section full-width">
+        <div class="section-half">
+            <h3>User Journey Flow</h3>
+            <div id="funnel_chart"></div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 27.7%;"></div>
+            </div>
+            <div>27.7% Complete</div>
+        </div>
+        <div class="section-half">
+            <h3>Journey Bottlenecks</h3>
+            <p>Profile Creation: High Drop-off (19.9%)</p>
+            <p>Job Application: Critical Drop-off (25%)</p>
+            <p>Application Review: Medium Drop-off (32.3%)</p>
+        </div>
+    </div>
+
+    <script>
+        // Render charts
+        var activity_fig = {{ activity_graph | safe }};
+        Plotly.newPlot('activity_chart', activity_fig.data, activity_fig.layout);
+
+        var traffic_fig = {{ traffic_graph | safe }};
+        Plotly.newPlot('traffic_chart', traffic_fig.data, traffic_fig.layout);
+
+        var weekly_fig = {{ weekly_graph | safe }};
+        Plotly.newPlot('weekly_chart', weekly_fig.data, weekly_fig.layout);
+
+        var funnel_fig = {{ funnel_graph | safe }};
+        Plotly.newPlot('funnel_chart', funnel_fig.data, funnel_fig.layout);
+
+        var gender_fig = {{ gender_graph | safe }};
+        Plotly.newPlot('gender_chart', gender_fig.data, gender_fig.layout);
+
+        var qual_fig = {{ qual_graph | safe }};
+        Plotly.newPlot('qual_chart', qual_fig.data, qual_fig.layout);
+
+        var job_fig = {{ job_graph | safe }};
+        Plotly.newPlot('job_chart', job_fig.data, job_fig.layout);
+
+        var age_exp_fig = {{ age_exp_graph | safe }};
+        Plotly.newPlot('age_exp_chart', age_exp_fig.data, age_exp_fig.layout);
+    </script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PGRKAM Web & Mobile Application</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .hero {
+      background: url("{{ url_for('static', filename='img/tl6.jpeg') }}") center/cover no-repeat;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    .btn-primary {
+      border-radius: 30px;
+      padding: 10px 25px;
+    }
+    .info-section {
+      padding: 60px 0;
+    }
+    .info-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .info-card:hover {
+      transform: translateY(-5px);
+    }
+    footer {
+      background: #222;
+      color: #bbb;
+      text-align: center;
+      padding: 15px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>PGRKAM Web & Mobile Application</h1>
+      <p class="lead">Punjab Government's employment platform with analytics-driven insights</p>
+      <a href="{{ url_for('chatboat') }}" class="btn btn-primary mt-3">Explore Chatbot</a>
+    </div>
+  </section>
+
+  <!-- Info Section -->
+  <section class="info-section container">
+    <div class="text-center mb-5">
+      <h2>About PGRKAM</h2>
+      <p class="text-muted">www.pgrkam.com & the PGRKAM Android app provide employment data to candidates</p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="info-card">
+          <h4>Title</h4>
+          <p>
+            PGRKAM web application (www.pgrkam.com) and the PGRKAM Android application of the Punjab Government provides employment data to the prospective candidates. The platform has a sizeable number of user base but it lacks integrated analytics tools.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="info-card">
+          <h4>Description</h4>
+          <p>
+            It is desired that an analytics tool similar to Mixpanel/Kissmetrics/Google Analytics be developed to track user behavior. This includes channels of advertisement, demographics, services accessed, job suggestions, and success/failure analysis using AI-driven recommendation algorithms.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="info-card">
+          <h4>Expected Outcome</h4>
+          <p>
+            User movement and behavior should be successfully tracked across the PGRKAM app and website. This will enable timely reporting and provide actionable analytics for administrators, leading to better job recommendations, enhanced user engagement, and improved employment outcomes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Chaybaoyt | Powered by Smart AI Technologies</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>
